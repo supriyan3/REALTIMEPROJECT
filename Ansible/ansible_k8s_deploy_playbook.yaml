@@ -26,6 +26,9 @@
       when: not kubeconfig_stat.stat.exists
 
     - name: Apply Kubernetes deployment
-      command: kubectl apply -f /home/ec2-user/k8s_deployment.yaml
+      shell: kubectl apply -f /home/ec2-user/k8s_deployment.yaml
+      become: yes
+      become_user: ec2-user
       environment:
         KUBECONFIG: /home/ec2-user/.kube/config
+        PATH: "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
